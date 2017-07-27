@@ -1,5 +1,6 @@
 other.rb
 .DS_Store
+.kitchen/**
 
 *.gem
 *.rbc
