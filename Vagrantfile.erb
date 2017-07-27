@@ -1,0 +1,99 @@
+<% config[:vagrantfiles].each do |vagrantfile| %>
+  require "<%= vagrantfile %>"
+<% end %>
+
+Vagrant.configure("2") do |c|
+  c.berkshelf.enabled = false if Vagrant.has_plugin?("vagrant-berkshelf")
+  <% if config[:cachier] %>
+  if Vagrant.has_plugin?("vagrant-cachier")
+    c.cache.scope = <%= [':box', ':machine'].include?(config[:cachier]) ? config[:cachier] : ':box' %>
+  end
+  <% end %>
+
+  c.vm.box = "<%= config[:box] %>"
+
+  <% if config[:box_url] %>
+    c.vm.box_url = "<%= config[:box_url] %>"
+  <% end %>
+
+  <% if config[:box_version] %>
+    c.vm.box_version = "<%= config[:box_version] %>"
+  <% end %>
+
+  <% if !config[:box_check_update].nil? %>
+    c.vm.box_check_update = <%= config[:box_check_update] %>
+  <% end %>
+
+  <% if !config[:box_download_ca_cert].nil? %>
+    c.vm.box_download_ca_cert = "<%= config[:box_download_ca_cert] %>"
+  <% end %>
+
+  <% if !config[:box_download_insecure].nil? %>
+    c.vm.box_download_insecure = "<%= config[:box_download_insecure] %>"
+  <% end %>
+
+  <% if config[:vm_hostname] %>
+    c.vm.hostname = "<%= config[:vm_hostname] %>"
+  <% end %>
+
+  <% if config[:communicator] %>
+    c.vm.communicator = "<%= config[:communicator] %>"
+  <% end %>
+
+  <% if config[:guest] %>
+    c.vm.guest = "<%= config[:guest] %>"
+  <% end %>
+
+  <% if config[:communicator] %>
+    <% if config[:username] %>
+      c.<%= config[:communicator] %>.username = "<%= config[:username] %>"
+    <% end %>
+    <% if config[:password] %>
+      c.<%= config[:communicator] %>.password = "<%= config[:password] %>"
+    <% end %>
+  <% else %>
+    <% if config[:username] %>
+      c.ssh.username = "<%= config[:username] %>"
+    <% end %>
+    <% if config[:password] %>
+      c.ssh.password = "<%= config[:password] %>"
+    <% end %>
+  <% end %>
+
+  <% if config[:ssh_key] %>
+    c.ssh.private_key_path = "<%= config[:ssh_key] %>"
+  <% end %>
+  <% config[:ssh].each do |key, value| %>
+    c.ssh.<%= key %> = <%= [true, false].include?(value) ? value : value.inspect %>
+  <% end %>
+  <% if config[:winrm] %>
+    <% config[:winrm].each do |key, value| %>
+      c.winrm.<%= key %> = <%= value %>
+    <% end %>
+  <% end %>
+
+  <% if config[:boot_timeout] %>
+    c.vm.boot_timeout = <%= config[:boot_timeout] %>
+  <% end %>
+
+  <% Array(config[:network]).each do |opts| %>
+    c.vm.network(:<%= opts[0] %>, <%= opts[1..-1].join(", ") %>)
+  <% end %>
+
+  c.vm.synced_folder ".", "/vagrant", disabled: true
+
+  <% config[:synced_folders].each do |source, destination, options| %>
+    c.vm.synced_folder <%= source.inspect %>, <%= destination.inspect %>, <%= options %>
+  <% end %>
+
+  <% if config[:box] =~ /centos/ %>
+    c.vm.provision "shell", inline: "bash /vagrant/bootstrap.sh"
+  <% else %>
+    c.vm.provision "shell", inline: "powershell -ExecutionPolicy Bypass -File C:/Vagrant/bootstrap.ps1"
+  <% end %>
+
+  c.vm.provider "virtualbox" do |p|
+    p.linked_clone = true
+  end
+
+end

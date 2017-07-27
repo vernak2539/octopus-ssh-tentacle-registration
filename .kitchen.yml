@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+provisioner:
+  name: chef_zero
+  log_level: info
+  require_chef_omnibus: 12
+  cookbooks_path: "."
+platforms:
+  - name: centos-7.2
+verifier:
+  name: inspec
+suites:
+  - name: default
+    run_list:
+      - recipe[octopus_tentacle_registration_test::register]
+    verifier:
+      inspec_tests:
+        - ./test

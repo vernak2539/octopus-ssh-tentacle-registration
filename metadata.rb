@@ -1,0 +1,11 @@
+name             'octopus_tentacle_registration'
+maintainer       'Alex Vernacchia'
+maintainer_email 'alvernacchia@gmail.com'
+license          'All rights reserved'
+description      'handle tentacle registration for linux ssh servers'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.0.1'
+chef_version     '~> 12'
+issues_url       'https://github.com/vernak2539/octopus-tentacle-registration/issues'
+source_url       'https://github.com/vernak2539/octopus-tentacle-registration'
+supports         'centos'
