@@ -13,7 +13,7 @@ verifier:
 suites:
   - name: default
     run_list:
-      - recipe[octopus_tentacle_registration_test::register]
+      - recipe[octopus_ssh_tentacle_registration_test::register]
     verifier:
       inspec_tests:
         - ./test

@@ -1,4 +1,4 @@
-name             'octopus_tentacle_registration'
+name             'octopus_ssh_tentacle_registration'
 maintainer       'Alex Vernacchia'
 maintainer_email 'alvernacchia@gmail.com'
 license          'All rights reserved'

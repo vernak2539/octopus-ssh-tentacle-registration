@@ -1,6 +1,6 @@
 # require 'spec_helper'
 #
-# describe 'octopus_tentacle_registration' do
+# describe 'octopus_ssh_tentacle_registration' do
 #   let(:chef_run) do
 #     ChefSpec::Runner.new(step_into: ['register_ssh_octopus_tenacle']) do |node|
 #       it 'run fingerprint command' do

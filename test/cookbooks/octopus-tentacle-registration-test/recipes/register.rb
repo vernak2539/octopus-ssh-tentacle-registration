@@ -1,4 +1,4 @@
-OCTOPUS_DATA = node['octopus_tentacle_registration_test']
+OCTOPUS_DATA = node['octopus_ssh_tentacle_registration_test']
 
 register_ssh_octopus_tenacle 'sample-server' do
   server_url OCTOPUS_DATA['server_url']

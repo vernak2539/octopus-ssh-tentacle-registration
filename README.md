@@ -20,7 +20,7 @@ It registers an Linux agent with the Octopus Server via the API. To handle regis
 Add to your metadata.rb and use whatever package manager to install.
 
 ```ruby
-depends 'octopus_tentacle_registration'
+depends 'octopus_ssh_tentacle_registration'
 ```
 
 ### In recipe

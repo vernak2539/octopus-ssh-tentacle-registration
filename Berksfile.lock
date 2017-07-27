@@ -1,11 +1,11 @@
 DEPENDENCIES
-  octopus_tentacle_registration
+  octopus_ssh_tentacle_registration
     path: .
     metadata: true
-  octopus_tentacle_registration_test
+  octopus_ssh_tentacle_registration_test
     path: test/cookbooks/octopus-tentacle-registration-test
 
 GRAPH
-  octopus_tentacle_registration (0.0.1)
-  octopus_tentacle_registration_test (0.1.0)
-    octopus_tentacle_registration (>= 0.0.0)
+  octopus_ssh_tentacle_registration (0.0.1)
+  octopus_ssh_tentacle_registration_test (0.1.0)
+    octopus_ssh_tentacle_registration (>= 0.0.0)
