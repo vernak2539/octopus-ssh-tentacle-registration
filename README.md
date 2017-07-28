@@ -6,7 +6,7 @@ Always looking for help.
 
 ## What it does
 
-It registers an Linux agent with the Octopus Server via the API. To handle registration, the following occurs:
+It registers a Linux agent with the Octopus Server via the API. To handle registration, the following occurs:
 
 1. Looks for a file that contains the Octopus machine id (stored in step #3)
     * If file is found, it will not try to register machine (i.e. good for repeated chef runs)
