@@ -1,6 +1,6 @@
-other.rb
 .DS_Store
 .kitchen/**
+test/cookbooks/octopus-tentacle-registration-test/attributes
 
 *.gem
 *.rbc

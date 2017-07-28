@@ -45,5 +45,5 @@ rspec spec --col
 
 ### Kitchen
 
-1. You should replace the values in the (attributes)(./test/cookbooks/octopus-tentacle-registration-test/attributes/default.rb) with those are specific to you
+1. You should replace the values in the (register recipe)(./test/cookbooks/octopus-tentacle-registration-test/recipes/register.rb) with those are specific to you
 2. `kitchen converge`
