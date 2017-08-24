@@ -56,8 +56,8 @@ action :create do
     end
   else
     Chef::Log.error('Unsuccessful registration')
-    Chef::Log.error("Request Data: #{machine.post_data}")
-    Chef::Log.error("Response: #{response}")
+    Chef::Log.error("Request Data: #{machine[:post_data]}")
+    Chef::Log.error("Response: #{machine[:response]}")
   end
 
 
