@@ -49,7 +49,11 @@ module OcotopusDeploy
 
       registered_machine = JSON.parse(response.body)
 
-      return registered_machine['Id']
+      return {
+        id: registered_machine['Id'],
+        post_data: post_data.to_json,
+        response: registered_machine
+      }
     end
   end
 end

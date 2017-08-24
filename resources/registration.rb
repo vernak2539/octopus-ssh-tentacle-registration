@@ -26,7 +26,7 @@ action :create do
     return
   end
 
-  machine_id = register_machine({
+  machine = register_machine({
     url: server_url,
     api_key: api_key,
     ssh_account_id: ssh_account_id,
@@ -39,16 +39,26 @@ action :create do
     }
   })
 
-  directory OCTOPUS_DIRECTORY do
-    recursive true
+  machine_id = machine[:id]
+
+  if(machine_id)
+    directory OCTOPUS_DIRECTORY do
+      recursive true
+    end
+
+    file MACHINE_ID_FILE do
+      content machine_id
+    end
+
+    log 'successful registration' do
+      message "Registered machine on octopus server with ID of '#{machine_id}'"
+      level :info
+    end
+  else
+    Chef::Log.error('Unsuccessful registration')
+    Chef::Log.error("Request Data: #{machine.post_data}")
+    Chef::Log.error("Response: #{response}")
   end
 
-  file MACHINE_ID_FILE do
-    content machine_id
-  end
 
-  log 'inform' do
-    message "Registered machine on octopus server with ID of '#{machine_id}'"
-    level :info
-  end
 end

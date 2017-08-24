@@ -50,7 +50,7 @@ describe 'OcotopusDeploy::SshTentacleRegistration' do
   describe 'resending request to octopus api' do
     it 'should return machine id if response is correct' do
       SAMPLE_ID = 123456;
-      sample_url = 'sample.url.test.com'
+      sample_url = 'http://sample.url.test.com'
 
       stub_request(:post, "#{sample_url}/api/machines").to_return(body: { Id: SAMPLE_ID }.to_json)
 
@@ -66,7 +66,7 @@ describe 'OcotopusDeploy::SshTentacleRegistration' do
         },
         api_key: 'API-XXXXXXXXXX'
       }
-      expect(registration.register_machine(params)).to eq SAMPLE_ID
+      expect(registration.register_machine(params)[:id]).to eq SAMPLE_ID
     end
   end
 end
