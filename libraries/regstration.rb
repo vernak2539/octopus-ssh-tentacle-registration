@@ -21,7 +21,7 @@ module OcotopusDeploy
 
     def generateFingerPrint()
       Chef::Resource::RubyBlock.send(:include, Chef::Mixin::ShellOut)
-      command = 'ssh-keygen -lf /etc/ssh/ssh_host_rsa_key.pub|awk \'{print $2}\''
+      command = 'ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub | cut -d' ' -f2 | awk \'{ print $1}\' | cut -d':' -f2-'
       command_out = shell_out(command)
       return command_out.stdout.strip
     end
