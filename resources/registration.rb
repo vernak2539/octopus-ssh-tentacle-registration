@@ -10,6 +10,7 @@ property :api_key, String, name_property: true, required: true
 property :ssh_account_id, String, name_property: true, required: true
 property :environments, Array, name_property: true, required: true
 property :roles, Array, name_property: true, required: true
+property :dotnet_core_platform, String, required: false, default: nil
 
 OCTOPUS_DIRECTORY = '/opt/octopus'.freeze
 MACHINE_ID_FILE = "#{OCTOPUS_DIRECTORY}/machine_id".freeze
@@ -36,7 +37,8 @@ action :create do
     node: {
       ipaddress: node['ipaddress'],
       machinename: node['machinename'].upcase
-    }
+    },
+    dotnet_core_platform: dotnet_core_platform
   })
 
   machine_id = machine[:id]
