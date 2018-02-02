@@ -34,6 +34,7 @@ module OcotopusDeploy
           Host: params[:node][:ipaddress],
           Port: 22,
           Fingerprint: params[:fingerprint].strip,
+          DotNetCorePlatform: params[:dotnet_core_platform]
         },
         EnvironmentIds: params[:environments],
         Name: params[:node][:machinename].upcase,

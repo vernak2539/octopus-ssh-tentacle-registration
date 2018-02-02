@@ -32,6 +32,7 @@ register_ssh_octopus_tenacle 'sample-server' do
   ssh_account_id 'Account ID of SSH user being used to connect to the boxes'
   environments ['environments', 'to put this', 'box in']
   roles ['roles this', 'box has']
+  dotnet_core_platform 'linux-x64' # or osx-x64, not required
 end
 ```
 
