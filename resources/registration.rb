@@ -28,20 +28,20 @@ action :create do
   end
 
   machine_data = {
-    url: register_ssh_octopus_tenacle.server_url,
-    api_key: register_ssh_octopus_tenacle.api_key,
-    ssh_account_id: register_ssh_octopus_tenacle.ssh_account_id,
+    url: new_resource.server_url,
+    api_key: new_resource.api_key,
+    ssh_account_id: new_resource.ssh_account_id,
     fingerprint: generateFingerPrint(),
-    roles: register_ssh_octopus_tenacle.roles,
-    environments: register_ssh_octopus_tenacle.environments,
+    roles: new_resource.roles,
+    environments: new_resource.environments,
     node: {
       ipaddress: node['ipaddress'],
       machinename: node['machinename'].upcase
     }
   }
 
-  if(register_ssh_octopus_tenacle.dotnet_core_platform != '')
-    machine_data['dotnet_core_platform'] = register_ssh_octopus_tenacle.dotnet_core_platform
+  if(new_resource.dotnet_core_platform != '')
+    machine_data['dotnet_core_platform'] = new_resource.dotnet_core_platform
   end
 
   machine = register_machine(machine_data)
