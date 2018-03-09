@@ -10,7 +10,7 @@ property :api_key, String, name_property: true, required: true
 property :ssh_account_id, String, name_property: true, required: true
 property :environments, Array, name_property: true, required: true
 property :roles, Array, name_property: true, required: true
-property :dotnet_core_platform, String, required: false, default: nil
+property :dotnet_core_platform, String, required: false, default: ''
 
 OCTOPUS_DIRECTORY = '/opt/octopus'.freeze
 MACHINE_ID_FILE = "#{OCTOPUS_DIRECTORY}/machine_id".freeze
@@ -27,19 +27,24 @@ action :create do
     return
   end
 
-  machine = register_machine({
-    url: server_url,
-    api_key: api_key,
-    ssh_account_id: ssh_account_id,
+  machine_data = {
+    url: new_resource.server_url,
+    api_key: new_resource.api_key,
+    ssh_account_id: new_resource.ssh_account_id,
     fingerprint: generateFingerPrint(),
-    roles: roles,
-    environments: environments,
+    roles: new_resource.roles,
+    environments: new_resource.environments,
     node: {
       ipaddress: node['ipaddress'],
       machinename: node['machinename'].upcase
-    },
-    dotnet_core_platform: dotnet_core_platform
-  })
+    }
+  }
+
+  if(new_resource.dotnet_core_platform != '')
+    machine_data['dotnet_core_platform'] = new_resource.dotnet_core_platform
+  end
+
+  machine = register_machine(machine_data)
 
   machine_id = machine[:id]
 
