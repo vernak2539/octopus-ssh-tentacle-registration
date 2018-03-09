@@ -10,7 +10,7 @@ property :api_key, String, name_property: true, required: true
 property :ssh_account_id, String, name_property: true, required: true
 property :environments, Array, name_property: true, required: true
 property :roles, Array, name_property: true, required: true
-property :dotnet_core_platform, String, required: false, default: nil
+property :dotnet_core_platform, String, required: false, default: ''
 
 OCTOPUS_DIRECTORY = '/opt/octopus'.freeze
 MACHINE_ID_FILE = "#{OCTOPUS_DIRECTORY}/machine_id".freeze
@@ -27,19 +27,24 @@ action :create do
     return
   end
 
-  machine = register_machine({
-    url: server_url,
-    api_key: api_key,
-    ssh_account_id: ssh_account_id,
+  machine_data = {
+    url: register_ssh_octopus_tenacle.server_url,
+    api_key: register_ssh_octopus_tenacle.api_key,
+    ssh_account_id: register_ssh_octopus_tenacle.ssh_account_id,
     fingerprint: generateFingerPrint(),
-    roles: roles,
-    environments: environments,
+    roles: register_ssh_octopus_tenacle.roles,
+    environments: register_ssh_octopus_tenacle.environments,
     node: {
       ipaddress: node['ipaddress'],
       machinename: node['machinename'].upcase
-    },
-    dotnet_core_platform: dotnet_core_platform
-  })
+    }
+  }
+
+  if(register_ssh_octopus_tenacle.dotnet_core_platform != '')
+    machine_data['dotnet_core_platform'] = register_ssh_octopus_tenacle.dotnet_core_platform
+  end
+
+  machine = register_machine(machine_data)
 
   machine_id = machine[:id]
 
