@@ -5,7 +5,7 @@ license          'All rights reserved'
 description      'handle tentacle registration for linux ssh servers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.2.0'
-chef_version     '~> 12'
+chef_version     '>= 12'
 issues_url       'https://github.com/vernak2539/octopus-ssh-tentacle-registration/issues'
 source_url       'https://github.com/vernak2539/octopus-ssh-tentacle-registration'
 supports         'centos'
