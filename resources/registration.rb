@@ -38,7 +38,7 @@ action :create do
       ipaddress: node['ipaddress'],
       machinename: node['machinename'].upcase
     },
-    dotnet_core_platform: dotnet_core_platform
+    dotnet_core_platform: new_resource.dotnet_core_platform
   }
 
   machine = register_machine(machine_data)
